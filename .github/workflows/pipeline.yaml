@@ -2,9 +2,9 @@ name: Build and Upload
 
 on:
   push:
-    branches: [prod]
+    branches: [main]
   pull_request:
-    branches: [prod]
+    branches: [main]
 
 jobs:
   build:
