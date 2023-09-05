@@ -54,7 +54,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         with:
-          bump_version_scheme: minor
+          bump_version_scheme: patch
           release_body: "The official release for rattifyapi"
 
       - name: Check Release Output Parameters
@@ -80,10 +80,13 @@ jobs:
       # Upload to rattifyapi PyPi
       - name: Build and Upload to rattifyapi PyPi
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          python3 setup.py sdist bdist_wheel
-          python3 -m twine upload --skip-existing dist/*
-
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          export VERSION=${{ steps.release.outputs.version }}
+          echo $VERSION
+          python3 setup.py sdist bdist_wheel
+          ls -la dist/
+          python3 -m twine upload dist/*
