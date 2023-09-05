@@ -5,7 +5,7 @@ Python plugin for [RattifApi](https://rattify.com/) View on [pypi.python.org](ht
 ```sh
 pip install rattifyapi
 ```
-Example
+## Example
 
 ```python
 from rattifyapi.rattify import Rattify
